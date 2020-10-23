@@ -2,6 +2,8 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, ManyToMan
 import {BaseEntity} from "./baseEntity";
 import {User} from "./user";
 import {GoodsType} from "./goodsType";
+import { Goods } from './goods';
+import { Order } from './order';
 
 @Entity()
 export class OrderGoods extends BaseEntity{
@@ -12,8 +14,11 @@ export class OrderGoods extends BaseEntity{
     @Column({type:"text",comment:'商品图'})
     images: string;
 
-    @Column({comment:'原商品ID'})
-    originId: number;
+    @ManyToOne(type => Goods)
+    goods:Goods;
+
+    @ManyToOne(type => Order)
+    order:Order;
 
     @Column({comment:'购买数量'})
     buyNum: number;

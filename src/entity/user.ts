@@ -4,6 +4,7 @@ import {Address} from "./address";
 import {Comment} from "./comment";
 import {Order} from "./order";
 import {BaseEntity} from "./baseEntity";
+import { ShoppingCartGoods } from './shoppingCartGoods';
 
 @Entity()
 export class User extends BaseEntity{
@@ -20,6 +21,8 @@ export class User extends BaseEntity{
     @OneToMany(type => Address,address => address.user)
     addresses:Address[]
 
+    @OneToMany(type => ShoppingCartGoods,shoppingCartGoods => shoppingCartGoods.user)
+    shoppingCartGoods:ShoppingCartGoods[]
 
     @OneToMany(type => Comment,comment => comment.user)
     comments:Comment[]

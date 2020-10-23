@@ -1,7 +1,9 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, OneToOne} from 'typeorm';
+import {Entity, Column, OneToMany, ManyToOne, OneToOne} from 'typeorm';
 import {User} from "./user";
 import {BaseEntity} from "./baseEntity";
 import {Comment} from "./comment";
+import { OrderGoods } from './orderGoods';
+
 const moment = require('moment');
 
 @Entity()
@@ -16,6 +18,9 @@ export class Order extends BaseEntity{
 
     @OneToOne(type => Comment, comment => comment.order)
     comment:Comment
+
+    @OneToMany(type => OrderGoods, goodsList => goodsList.order)
+    goodsList:OrderGoods[]
 
     @Column({type:"datetime",comment:'接单时间', transformer:{
             from(value: any): any {

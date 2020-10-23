@@ -8,19 +8,17 @@ export class Comment extends BaseEntity{
     @Column({type:"text",comment:'评论内容'})
     content: string;
 
-    @Column({type:"text",comment:'商家回复'})
+    @Column({type:"text",comment:'商家回复',nullable:true})
     reply: string;
 
-    @Column({type:"text",comment:'评论附图'})
+    @Column({type:"text",comment:'评论附图',nullable:true})
     images: string;
 
-    @Column({comment:'用户评分'})
+    @Column({type:'tinyint',comment:'用户评分',nullable:true})
     score:number
 
     @ManyToOne(type => User, user => user.comments)
     user:User
-
-    // todo 评论和商品的关联(点赞)
 
     @OneToOne(type => Order, order => order.comment)
     order:Order

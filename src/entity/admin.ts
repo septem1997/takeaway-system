@@ -5,13 +5,13 @@ import {BaseEntity} from "./baseEntity";
 @Entity()
 export class Admin extends BaseEntity{
 
-    @Column({comment:'用户名'})
+    @Column({comment:'用户名',length:32})
     username: string;
 
-    @Column({comment:'后台人员姓名'})
+    @Column({comment:'后台人员姓名',length:32})
     name:string;
 
-    @Column()
+    @Column({length:32})
     phone:string
 
     @ManyToOne(type => Role, role => role.admins)

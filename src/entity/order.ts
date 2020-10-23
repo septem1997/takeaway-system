@@ -10,7 +10,7 @@ const moment = require('moment');
 export class Order extends BaseEntity{
 
 
-    @Column({comment:'订单状态，0：未接单，1：已接单，2：已拒绝，3：已完成'})
+    @Column({type:'tinyint',comment:'订单状态，0：未接单，1：已接单，2：已拒绝，3：已完成'})
     status:0|1|2|3;
 
     @ManyToOne(type => User, user => user.orders)
@@ -45,7 +45,7 @@ export class Order extends BaseEntity{
     @Column({comment:'详细地址'})
     address: string;
 
-    @Column({comment:'收货人姓名'})
+    @Column({comment:'收货人姓名',length:32})
     receiver:string;
 
     @Column({type:"float",precision:9,scale:6,comment:'纬度'})
@@ -54,7 +54,7 @@ export class Order extends BaseEntity{
     @Column({type:"float",precision:9,scale:6,comment:'经度'})
     longitude:number
 
-    @Column()
+    @Column({length:32})
     phone:string
 
 

@@ -5,7 +5,7 @@ import {GoodsType} from "./goodsType";
 @Entity()
 export class Goods extends BaseEntity{
 
-    @Column({type:"text",comment:'商品名称'})
+    @Column({comment:'商品名称'})
     name: string;
 
     @Column({type:"text",comment:'商品图'})
@@ -17,7 +17,7 @@ export class Goods extends BaseEntity{
     @Column({default:false,comment:'是否在售'})
     onSale:boolean;
 
-    @Column({comment:'好评率'})
+    @Column({type:'tinyint',comment:'好评率',nullable:true})
     rate: number;
 
     @Column({type:"float",precision:9,scale:2,comment:'定价'})

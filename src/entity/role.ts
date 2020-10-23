@@ -5,7 +5,7 @@ import {BaseEntity} from "./baseEntity";
 @Entity()
 export class Role extends BaseEntity{
 
-    @Column()
+    @Column({length:32})
     roleName: string;
 
     @OneToMany(type => Admin,admin => admin.role)

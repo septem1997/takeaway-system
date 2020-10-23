@@ -6,7 +6,7 @@ import {Goods} from "./goods";
 @Entity()
 export class GoodsType extends BaseEntity{
 
-    @Column({type:"text",comment:'商品分组名称'})
+    @Column({comment:'商品分组名称',length:32})
     name: string;
 
 

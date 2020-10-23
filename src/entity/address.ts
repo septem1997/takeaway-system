@@ -8,7 +8,7 @@ export class Address extends BaseEntity{
     @Column({comment:'详细地址'})
     address: string;
 
-    @Column({comment:'收货人姓名'})
+    @Column({comment:'收货人姓名',length:32})
     receiver:string;
 
     @Column({type:"float",precision:9,scale:6,comment:'纬度'})
@@ -17,7 +17,7 @@ export class Address extends BaseEntity{
     @Column({type:"float",precision:9,scale:6,comment:'经度'})
     longitude:number
 
-    @Column()
+    @Column({length:32})
     phone:string
 
     @ManyToOne(type => User, user => user.addresses)

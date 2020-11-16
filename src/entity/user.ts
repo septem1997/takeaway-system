@@ -15,7 +15,7 @@ export class User extends BaseEntity{
     @Column({comment:'用户昵称',length:32})
     nickname: string;
 
-    @Column({select:false})
+    @Column()
     password: string;
 
     @OneToMany(type => Address,address => address.user)

@@ -57,5 +57,7 @@ export class Order extends BaseEntity{
     @Column({length:32})
     phone:string
 
+    @Column({comment:'订单总金额'})
+    totalPrice:number;
 
 }

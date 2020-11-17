@@ -1,17 +1,17 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entity/user';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { UserDto } from '../dto/user.dto';
 import { JwtService } from '@nestjs/jwt';
+import { Admin } from '../entity/admin';
+import { AdminDto } from '../dto/admin.dto';
 
 @Injectable()
-export class UserService {
+export class AdminService {
 
   constructor(
-    @InjectRepository(User)
-    private repository: Repository<User>,
+    @InjectRepository(Admin)
+    private repository: Repository<Admin>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -21,15 +21,15 @@ export class UserService {
   }
 
 
-  async login(userDto:UserDto) {
-    const findUser = await this.findOne(userDto)
-    if (findUser){
-      const pwdIsCorrect = await bcrypt.compare(userDto.password, findUser.password)
+  async login(adminDto:AdminDto) {
+    const findAdmin = await this.findOne(adminDto)
+    if (findAdmin){
+      const pwdIsCorrect = await bcrypt.compare(adminDto.password, findAdmin.password)
       if (pwdIsCorrect){
         return {
-          token:'Bearer '+this.jwtService.sign(userDto),
-          username:findUser.username,
-          nickname:findUser.nickname
+          token:'Bearer '+this.jwtService.sign(adminDto),
+          username:findAdmin.username,
+          name:findAdmin.name
         }
       }else {
         throw new HttpException('用户名或密码错误', HttpStatus.BAD_REQUEST);
@@ -39,27 +39,28 @@ export class UserService {
     }
   }
 
-  async create(userDto: UserDto) {
-    const query  = new User()
-    query.username = userDto.username
+  async create(adminDto: AdminDto) {
+    const query  = new Admin()
+    query.username = adminDto.username
     const findAdmin = await this.repository.findOne(query)
     if (findAdmin){
       throw new HttpException('该用户名已存在', HttpStatus.CONFLICT);
     }
-    const user = new User()
-    const newPass = await this.register(userDto.password)
-    user.username = userDto.username
+    const user = new Admin()
+    const newPass = await this.register(adminDto.password)
+    user.username = adminDto.username
     user.password = newPass
+    user.phone = adminDto.phone
     user.createTime = new Date().toISOString()
-    user.nickname = userDto.nickname
+    user.name = adminDto.name
     await this.repository.save(user)
     return {
       msg:'注册成功'
     }
   }
 
-  async findOne(userDto: UserDto):Promise<User> {
-    const query = new User()
+  async findOne(userDto: AdminDto):Promise<Admin> {
+    const query = new Admin()
     query.username = userDto.username
     return await this.repository.findOne(query)
   }

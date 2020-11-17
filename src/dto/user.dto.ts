@@ -1,6 +1,4 @@
-import { Pageable } from './pageable';
-
-export class UserDto extends Pageable{
+export class UserDto{
   username: string;
   password: string;
   nickname:string;

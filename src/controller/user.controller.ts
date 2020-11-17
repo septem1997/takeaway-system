@@ -1,6 +1,7 @@
 import { UserService } from '../service/user.service';
 import { UserDto } from '../dto/user.dto';
-import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Post, Req, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
 export class UserController {
@@ -15,6 +16,14 @@ export class UserController {
     } else {
       throw new HttpException('请输入用户名和密码', HttpStatus.BAD_REQUEST);
     }
+  }
+
+  @Get('info')
+  @UseGuards(AuthGuard('userJwt'))
+  info(
+    @Req() request
+  ) {
+    return request.user
   }
 
   @Post('signUp')

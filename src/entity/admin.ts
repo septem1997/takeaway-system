@@ -17,6 +17,6 @@ export class Admin extends BaseEntity{
     @ManyToOne(type => Role, role => role.admins)
     role:Role
 
-    @Column({select:false})
+    @Column()
     password: string;
 }

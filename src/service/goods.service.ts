@@ -5,12 +5,13 @@ import { Repository } from 'typeorm';
 import { Goods } from '../entity/goods';
 import { GoodsDto } from '../dto/goods.dto';
 import { GoodsTypeService } from './goodsType.service';
+import { GoodsType } from '../entity/goodsType';
 
 @Injectable()
 export class GoodsService {
 
   constructor(
-    @InjectRepository(Admin)
+    @InjectRepository(Goods)
     private repository: Repository<Goods>,
     private goodsTypeService: GoodsTypeService,
   ) {
@@ -30,7 +31,8 @@ export class GoodsService {
     goods.price = goodsDto.price;
     goods.stock = goodsDto.stock;
     goods.goodsType = await this.goodsTypeService.findOneBy(goodsDto.goodsTypeId);
-    await this.repository.save(goods);
+    const res = await this.repository.save(goods);
+    console.log(res);
     return {
       msg: '新增商品成功',
     };

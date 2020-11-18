@@ -12,7 +12,7 @@ import { GoodsTypeDto } from '../dto/goodsType.dto';
 export class GoodsTypeService {
 
   constructor(
-    @InjectRepository(Admin)
+    @InjectRepository(GoodsType)
     private repository: Repository<GoodsType>,
   ) {
   }

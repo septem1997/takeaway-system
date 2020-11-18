@@ -6,7 +6,7 @@ import { GoodsTypeService } from '../service/goodsType.service';
 import { GoodsTypeDto } from '../dto/goodsType.dto';
 
 @Controller('goodsType')
-export class GoodsController {
+export class GoodsTypeController {
   constructor(private readonly service: GoodsTypeService) {
   }
 

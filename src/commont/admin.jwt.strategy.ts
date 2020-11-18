@@ -16,7 +16,6 @@ export class AdminJwtStrategy extends PassportStrategy(Strategy,'adminJwt') {
   }
 
   async validate(adminDto:AdminDto) {
-    console.log('validateAdmin')
     return this.adminService.findOne(adminDto);
   }
 }

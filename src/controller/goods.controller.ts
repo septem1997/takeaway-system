@@ -12,9 +12,9 @@ export class GoodsController {
 
 
   @Post('upload')
-  @UseGuards(AuthGuard('adminJwt'))
+  // @UseGuards(AuthGuard('adminJwt'))
   @UseInterceptors(FileInterceptor('file'))
-  async upload(@UploadedFile() file): Promise<any> {
+  async upload(@UploadedFile() file) {
     const fileName = uuidv4() + '_' + file.originalname;
     const fs = require('fs-extra'), ObsClient = require('esdk-obs-nodejs');
     await fs.writeFileSync(fileName, file.buffer);

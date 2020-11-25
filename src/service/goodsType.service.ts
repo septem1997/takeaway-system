@@ -44,7 +44,7 @@ export class GoodsTypeService {
   async getTypeList() {
     const qb = this.repository.createQueryBuilder('goodsType')
       .select(['goodsType.id', 'goodsType.name'])
-      .where('tag.disabled = 0');
+      .where('goodsType.disabled = 0');
     return await qb.getMany()
   }
 

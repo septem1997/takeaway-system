@@ -12,7 +12,7 @@ export class GoodsController {
 
 
   @Post('upload')
-  // @UseGuards(AuthGuard('adminJwt'))
+  @UseGuards(AuthGuard('adminJwt'))
   @UseInterceptors(FileInterceptor('file'))
   async upload(@UploadedFile() file) {
     const fileName = uuidv4() + '_' + file.originalname;
@@ -56,10 +56,16 @@ export class GoodsController {
   }
 
 
-  @Get()
+  @Get('user')
+  @UseGuards(AuthGuard('userJwt'))
+  getGoodsListForUser() {
+    return this.goodsService.getGoodsListForUser();
+  }
+
+  @Get('store')
   @UseGuards(AuthGuard('adminJwt'))
-  getGoodsList() {
-    return this.goodsService.getGoodsList();
+  getGoodsListForStore() {
+    return this.goodsService.getGoodsListForStore();
   }
 
 }

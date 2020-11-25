@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { GoodsService } from '../service/goods.service';
 import { GoodsDto } from '../dto/goods.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -21,6 +21,12 @@ export class GoodsTypeController {
   @UseGuards(AuthGuard('adminJwt'))
   delete(@Body('ids') ids:Array<number>) {
     return this.service.deleteBy(ids)
+  }
+
+  @Get()
+  // @UseGuards(AuthGuard('adminJwt'))
+  getList(){
+    return this.service.getTypeList()
   }
 
 }

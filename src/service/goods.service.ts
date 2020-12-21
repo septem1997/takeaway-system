@@ -48,29 +48,21 @@ export class GoodsService {
     };
   }
 
-  async getGoodsListForStore() {
-    const types = await this.goodsTypeService.getTypeList();
-    for (const item of types) {
-      item.goodsList = await this.repository.createQueryBuilder('goods')
-        .select(['goods.id', 'goods.name',
-          'goods.images', 'goods.onSale', 'goods.rate', 'goods.price', 'goods.sales', 'goods.stock'])
-        .where('goods.disabled = 0')
-        .andWhere('goods.goodsTypeId = '+item.id)
-        .getMany();
-    }
-    return types;
+  async getGoodsListForStore(typeId) {
+    return await this.repository.createQueryBuilder('goods')
+      .select(['goods.id', 'goods.name',
+        'goods.images', 'goods.onSale', 'goods.rate', 'goods.price', 'goods.sales', 'goods.stock'])
+      .where('goods.disabled = 0')
+      .andWhere('goods.goodsTypeId = '+typeId)
+      .getMany();
   }
 
-  async getGoodsListForUser() {
-    const types = await this.goodsTypeService.getTypeList();
-    for (const item of types) {
-      item.goodsList = await this.repository.createQueryBuilder('goods')
-        .select(['goods.id', 'goods.name',
-          'goods.images', 'goods.rate', 'goods.price', 'goods.sales', 'goods.stock'])
-        .where('goods.disabled = 0 and goods.onSale = 1')
-        .andWhere('goods.goodsTypeId = '+item.id)
-        .getMany();
-    }
-    return types;
+  async getGoodsListForUser(typeId) {
+    return await this.repository.createQueryBuilder('goods')
+      .select(['goods.id', 'goods.name',
+        'goods.images', 'goods.rate', 'goods.price', 'goods.sales', 'goods.stock'])
+      .where('goods.disabled = 0 and goods.onSale = 1')
+      .andWhere('goods.goodsTypeId = '+typeId)
+      .getMany();
   }
 }

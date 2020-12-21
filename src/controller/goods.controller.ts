@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { GoodsService } from '../service/goods.service';
 import { GoodsDto } from '../dto/goods.dto';
 import { AuthGuard } from '@nestjs/passport';
@@ -58,14 +58,18 @@ export class GoodsController {
 
   @Get('user')
   @UseGuards(AuthGuard('userJwt'))
-  getGoodsListForUser() {
-    return this.goodsService.getGoodsListForUser();
+  getGoodsListForUser(
+    @Query('typeId') typeId:number
+  ) {
+    return this.goodsService.getGoodsListForUser(typeId);
   }
 
   @Get('store')
   @UseGuards(AuthGuard('adminJwt'))
-  getGoodsListForStore() {
-    return this.goodsService.getGoodsListForStore();
+  getGoodsListForStore(
+    @Query('typeId') typeId:number
+  ) {
+    return this.goodsService.getGoodsListForStore(typeId);
   }
 
 }
